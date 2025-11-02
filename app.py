@@ -4,10 +4,17 @@ import sqlite3
 import os
 
 app = Flask(__name__)
-app.secret_key = 'your-secret-key-here'
+
+# Конфигурация из переменных окружения
+app.secret_key = os.environ.get('SECRET_KEY', 'your-secret-key-change-in-production')
 
 # Конфигурация БД
-DATABASE = 'gvsu.db'
+DATABASE = os.environ.get('DATABASE_URL', 'gvsu.db')
+# Railway использует DATABASE_URL для PostgreSQL, но у нас SQLite
+# Если DATABASE_URL существует и это не SQLite, можно будет добавить поддержку PostgreSQL
+if DATABASE.startswith('postgres://') or DATABASE.startswith('postgresql://'):
+    # Для PostgreSQL нужна другая библиотека, пока используем SQLite
+    DATABASE = 'gvsu.db'
 
 def init_db():
     """Инициализация базы данных"""
@@ -610,4 +617,6 @@ def admin_delete_protocol(protocol_id):
     return redirect(url_for('admin_protocols'))
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    port = int(os.environ.get('PORT', 5000))
+    debug = os.environ.get('FLASK_ENV') == 'development'
+    app.run(host='0.0.0.0', port=port, debug=debug)
