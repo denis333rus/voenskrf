@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрация - ГВСУ СК России</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        
+        .form-container {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: bold;
+        }
+        
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+        
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #e74c3c;
+        }
+        
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+        
+        .required {
+            color: #e74c3c;
+        }
+        
+        .btn-submit {
+            background: #e74c3c;
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+        
+        .btn-submit:hover {
+            background: #c0392b;
+        }
+        
+        .btn-back {
+            display: inline-block;
+            margin-top: 20px;
+            color: #e74c3c;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        
+        .btn-back:hover {
+            text-decoration: underline;
+        }
+        
+        .alert {
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+        
+        .alert-success {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+        
+        .alert-error {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="form-container">
+            <h1>Регистрация в системе</h1>
+            <p class="subtitle">Заполните форму для регистрации в системе ГВСУ СК России</p>
+            
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            
+            <form method="POST" action="{{ url_for('register') }}">
+                <div class="form-group">
+                    <label for="full_name">ФИО <span class="required">*</span></label>
+                    <input type="text" id="full_name" name="full_name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="username">Желаемый логин <span class="required">*</span></label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Желаемый пароль <span class="required">*</span></label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="experience">Опыт работы в армии</label>
+                    <textarea id="experience" name="experience" placeholder="Опишите ваш опыт работы"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="education">Образование</label>
+                    <textarea id="education" name="education" placeholder="Укажите ваше образование"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="rank">Ваше звание в армии</label>
+                    <input type="text" id="rank" name="rank" placeholder="Укажите ваше звание в армии">
+                </div>
+                
+                <button type="submit" class="btn-submit">Зарегистрироваться</button>
+            </form>
+            
+            <p style="margin-top: 20px; text-align: center; color: #666;">
+                Уже зарегистрированы? <a href="{{ url_for('user_login') }}" style="color: #e74c3c; text-decoration: none;">Войти</a>
+            </p>
+            
+            <a href="{{ url_for('index') }}" class="btn-back">← Вернуться на главную</a>
+        </div>
+    </div>
+</body>
+</html>
+

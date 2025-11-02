@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Главное военное следственное управление Следственного комитета Российской Федерации</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background: #1a1a1a;
+            color: white;
+            padding: 10px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo img {
+            height: 60px;
+        }
+        
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .logo-text h1 {
+            font-size: 16px;
+            font-weight: bold;
+            line-height: 1.3;
+        }
+        
+        .logo-text span {
+            font-size: 14px;
+            color: #ccc;
+        }
+        
+        .header-controls {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+        
+        .search-btn, .lang-btn {
+            background: transparent;
+            border: 1px solid #555;
+            color: white;
+            padding: 8px 15px;
+            cursor: pointer;
+            border-radius: 3px;
+            transition: background 0.3s;
+        }
+        
+        .search-btn:hover, .lang-btn:hover {
+            background: #333;
+        }
+        
+        nav {
+            background: #2a2a2a;
+            padding: 10px 0;
+        }
+        
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+        
+        .nav-menu li a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 15px;
+            display: block;
+            transition: background 0.3s;
+            border-radius: 3px;
+        }
+        
+        .nav-menu li a:hover {
+            background: #3a3a3a;
+        }
+        
+        .main-content {
+            padding: 30px 0;
+            background: #f5f5f5;
+        }
+        
+        .hero-section {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 40px 0;
+            margin-bottom: 30px;
+        }
+        
+        .hero-section h2 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        
+        .hero-section p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+        
+        .content-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+        }
+        
+        .news-section {
+            background: white;
+            padding: 25px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .section-title {
+            font-size: 22px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e74c3c;
+            color: #2c3e50;
+        }
+        
+        .news-item {
+            margin-bottom: 25px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .news-item:last-child {
+            border-bottom: none;
+        }
+        
+        .news-date {
+            color: #e74c3c;
+            font-weight: bold;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+        
+        .news-title {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        
+        .news-title a {
+            color: #2c3e50;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .news-title a:hover {
+            color: #e74c3c;
+        }
+        
+        .news-excerpt {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        
+        .info-box {
+            background: white;
+            padding: 25px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .info-box h3 {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        
+        .info-box ul {
+            list-style: none;
+        }
+        
+        .info-box ul li {
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .info-box ul li a {
+            color: #333;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .info-box ul li a:hover {
+            color: #e74c3c;
+        }
+        
+        .contacts {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            border-radius: 5px;
+        }
+        
+        .contacts h3 {
+            color: white;
+            margin-bottom: 15px;
+        }
+        
+        .contact-item {
+            margin-bottom: 10px;
+        }
+        
+        footer {
+            background: #1a1a1a;
+            color: white;
+            padding: 30px 0;
+            margin-top: 40px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+        
+        .footer-section h4 {
+            margin-bottom: 15px;
+            color: #e74c3c;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section ul li {
+            margin-bottom: 8px;
+        }
+        
+        .footer-section ul li a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-section ul li a:hover {
+            color: white;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #333;
+            color: #999;
+        }
+        
+        @media (max-width: 768px) {
+            .header-top {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .nav-menu {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-top">
+                <div class="logo">
+                    <img src="{{ url_for('static', filename='logo .png') }}" alt="Логотип ГВСУ СК России">
+                    <div class="logo-text">
+                        <h1>Главное военное следственное управление</h1>
+                        <span>Следственного комитета Российской Федерации</span>
+                    </div>
+                </div>
+                <div class="header-controls">
+                    <button class="search-btn">Поиск</button>
+                    <button class="lang-btn">RU</button>
+                    <a href="/admin/login" style="padding: 8px 15px; text-decoration: none; background: transparent; border: 1px solid #555; color: white; border-radius: 3px; transition: background 0.3s; margin-left: 10px;">Админ</a>
+                </div>
+            </div>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="#home">Главная</a></li>
+                    <li><a href="#about">О нас</a></li>
+                    <li><a href="#news">Новости</a></li>
+                    <li><a href="#activities">Деятельность</a></li>
+                    <li><a href="#contacts">Контакты</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="main-content">
+            <div class="container">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        <div style="margin-bottom: 20px;">
+                            {% for category, message in messages %}
+                                <div style="padding: 15px; margin-bottom: 10px; border-radius: 5px; background: {% if category == 'success' %}#d4edda{% elif category == 'error' %}#f8d7da{% else %}#d1ecf1{% endif %}; border: 1px solid {% if category == 'success' %}#c3e6cb{% elif category == 'error' %}#f5c6cb{% else %}#bee5eb{% endif %}; color: {% if category == 'success' %}#155724{% elif category == 'error' %}#721c24{% else %}#0c5460{% endif %};">
+                                    {{ message }}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                {% endwith %}
+                
+                <div class="hero-section">
+                    <h2>Главное военное следственное управление Следственного комитета Российской Федерации</h2>
+                    <p>Расследование преступлений, связанных с военной службой и защитой государства</p>
+                </div>
+
+                <div class="content-grid">
+                    <div class="news-section">
+                        <h2 class="section-title">Последние новости</h2>
+                        
+                        {% if news %}
+                            {% for item in news %}
+                            <div class="news-item">
+                                <div class="news-date">{{ item.date }}</div>
+                                <div class="news-title">
+                                    <a href="#">{{ item.title }}</a>
+                                </div>
+                                <div class="news-excerpt">
+                                    {{ item.content[:150] }}{% if item.content|length > 150 %}...{% endif %}
+                                </div>
+                            </div>
+                            {% endfor %}
+                        {% else %}
+                            <p style="color: #666; padding: 20px 0;">Новостей пока нет</p>
+                        {% endif %}
+                    </div>
+
+                    <div class="sidebar">
+                        <div class="info-box">
+                            <h3>Основная деятельность</h3>
+                            <ul>
+                                <li><a href="#">Расследование преступлений</a></li>
+                                <li><a href="#">Защита прав военнослужащих</a></li>
+                                <li><a href="#">Надзорная деятельность</a></li>
+                                <li><a href="#">Международное сотрудничество</a></li>
+                                <li><a href="#">Правовое просвещение</a></li>
+                            </ul>
+                        </div>
+
+                        {% if session.get('user_id') %}
+                        <div class="info-box" style="background: linear-gradient(135deg, #27ae60 0%, #229954 100%); padding: 30px; text-align: center;">
+                            <h3 style="color: white; margin-bottom: 20px;">Личный кабинет</h3>
+                            <p style="color: white; margin-bottom: 20px;">Вы вошли как {{ session.get('username') }}</p>
+                            <a href="{{ url_for('user_dashboard') }}" style="display: inline-block; background: white; color: #27ae60; padding: 12px 30px; text-decoration: none; border-radius: 5px; font-weight: bold; transition: transform 0.3s;">Перейти в кабинет</a>
+                        </div>
+                        {% else %}
+                        <div class="info-box" style="background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); padding: 30px; text-align: center;">
+                            <h3 style="color: white; margin-bottom: 20px;">Вход в систему</h3>
+                            <p style="color: white; margin-bottom: 20px;">Доступ к внутренней системе</p>
+                            <a href="{{ url_for('register') }}" style="display: inline-block; background: white; color: #e74c3c; padding: 12px 30px; text-decoration: none; border-radius: 5px; font-weight: bold; margin-bottom: 10px;">Регистрация</a>
+                            <br>
+                            <a href="{{ url_for('user_login') }}" style="display: inline-block; background: transparent; color: white; padding: 12px 30px; text-decoration: none; border: 2px solid white; border-radius: 5px; font-weight: bold;">Войти</a>
+                        </div>
+                        {% endif %}
+
+                        <div class="contacts info-box">
+                            <h3>Контакты</h3>
+                            <div class="contact-item">
+                                <strong>ДС пинг Маршала ВС РФ</strong><br>
+                                @maryooq
+                            </div>
+                            <div class="contact-item">
+                                <strong>ДС пинг Председателя Следственного комитета Российской Федерации</strong><br>
+                                @denis43
+                            </div>
+                            <div class="contact-item">
+                                <strong>ДС пинг начальника Главного военное следственное управление Следственного комитета Российской Федерации</strong><br>
+                                @
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2025 Главное военное следственное управление СК России. Все права защищены. Оригинальный сайт: <a href="https://gvsu.gov.ru">https://gvsu.gov.ru</a></p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

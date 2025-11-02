@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Протоколы - ГВСУ СК России</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+        }
+        
+        .header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .header a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 15px;
+            border: 1px solid #555;
+            border-radius: 3px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+        
+        .protocols-section {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        h2 {
+            color: #2c3e50;
+            margin-bottom: 30px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e74c3c;
+        }
+        
+        .protocol-item {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 20px;
+            background: #fafafa;
+            border-left: 4px solid #e74c3c;
+        }
+        
+        .protocol-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 15px;
+        }
+        
+        .protocol-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .protocol-info {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+        
+        .protocol-info-item {
+            margin-bottom: 5px;
+        }
+        
+        .info-label {
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .protocol-content-preview {
+            color: #999;
+            font-size: 14px;
+            margin-bottom: 15px;
+            padding: 10px;
+            background: #fff;
+            border-radius: 3px;
+            max-height: 100px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .protocol-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .btn {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            text-decoration: none;
+            display: inline-block;
+            transition: opacity 0.3s;
+        }
+        
+        .btn-view {
+            background: #007bff;
+            color: white;
+        }
+        
+        .btn-delete {
+            background: #dc3545;
+            color: white;
+        }
+        
+        .btn:hover {
+            opacity: 0.9;
+        }
+        
+        .no-protocols {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+        
+        .alert {
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <h1>Все протоколы</h1>
+            <div>
+                <a href="{{ url_for('admin_dashboard') }}">← Назад</a>
+                <a href="{{ url_for('index') }}" style="margin-left: 10px;">На сайт</a>
+                <a href="{{ url_for('admin_logout') }}" style="margin-left: 10px;">Выйти</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        
+        <div class="protocols-section">
+            <h2>Список протоколов</h2>
+            
+            {% if protocols %}
+                {% for protocol in protocols %}
+                <div class="protocol-item">
+                    <div class="protocol-header">
+                        <div>
+                            <div class="protocol-title">{{ protocol.title }}</div>
+                        </div>
+                    </div>
+                    
+                    <div class="protocol-info">
+                        <div class="protocol-info-item">
+                            <span class="info-label">Дело:</span> {{ protocol.case_title }}
+                            {% if protocol.case_number %} (№ {{ protocol.case_number }}){% endif %}
+                        </div>
+                        {% if protocol.protocol_number %}
+                        <div class="protocol-info-item">
+                            <span class="info-label">Номер протокола:</span> {{ protocol.protocol_number }}
+                        </div>
+                        {% endif %}
+                        <div class="protocol-info-item">
+                            <span class="info-label">Составитель:</span> {{ protocol.user_name }} ({{ protocol.user_username }})
+                        </div>
+                        <div class="protocol-info-item">
+                            <span class="info-label">Дата создания:</span> {{ protocol.created_at }}
+                        </div>
+                    </div>
+                    
+                    <div class="protocol-content-preview">
+                        {{ protocol.content[:200] }}{% if protocol.content|length > 200 %}...{% endif %}
+                    </div>
+                    
+                    <div class="protocol-actions">
+                        <a href="{{ url_for('admin_view_protocol', protocol_id=protocol.id) }}" class="btn btn-view">Просмотреть</a>
+                        <form method="POST" action="{{ url_for('admin_delete_protocol', protocol_id=protocol.id) }}" style="display: inline;" onsubmit="return confirm('Вы уверены, что хотите удалить протокол?')">
+                            <button type="submit" class="btn btn-delete">Удалить</button>
+                        </form>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <div class="no-protocols">
+                    <p>Протоколов пока нет</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
+
